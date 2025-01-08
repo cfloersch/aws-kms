@@ -1,0 +1,43 @@
+maven run on machine with AWS credentials file (or env variables) defined
+
+keystore (can be left empty)
+storetype = KMS
+storepass (can be left empty)
+keypass (can be left empty)
+sigalg = SHA256withECDSA | SHA384withECDSA | SHA512withECDSA | SHA256withRSA | SHA384withRSA | SHA512withRSA
+            the PSS variants require bouncy castle on Java 8
+            No way to install both KmsProvider and BounceCastleProvider via arguments
+certchain = some location that defines the certificate chain (including our signing cert)
+              this can be either PKCS7 PEM/DER or a series (rfc based) of individual PEM certs
+providerClass = xpertss.crypto.kms.provider.KmsProvider
+
+
+
+So the default provider won't work as they don't have a zero argument constructor
+  My variant will
+
+
+certchain = some location that defines the certificate chain (including our signing cert)
+              this can be either PKCS7 PEM/DER or a series (rfc based) of individual PEM certs
+
+    Where should we store the cert chain? The keystore is currently stored in the source tree
+      so we could just store the cert chain (assuming it works with the leaf cert included)
+      in the source tree in place of the keystore file.
+
+      Alternatively we could create an AWS KeyStore that uses KMS for private key but uses
+        secrets manager for certificate/chain? The issue here is we need to get public key
+        from KMS to generate the cert chain and then write back somewhere else but with
+        naming that allows association.
+
+
+
+
+
+
+AWS Config/Creds
+  aws_access_key_id
+  aws_secret_access_key
+  aws_session_token
+  region
+
+Can those be passed by overloading any storepass/keypass combo
