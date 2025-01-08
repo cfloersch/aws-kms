@@ -91,9 +91,6 @@ ECDSA_SHA_256 |	SHA256withECDSA |
 ECDSA_SHA_384 |	SHA384withECDSA |
 ECDSA_SHA_512 |	SHA512withECDSA |
 
-Java 8 does not natively support the RSASSA_PSS algorithms above without also including the BouncyCastle Provider. Something that is 
-not possible when used with keytool and jarsigner without modifying the JAVA_HOME/jre/lib/security file.
-
 To sign and / or verify it is necessary to obtain Signature via JCE:
 
 ```

@@ -4,7 +4,7 @@ keystore (can be left empty)
 storetype = KMS
 storepass (can be left empty)
 keypass (can be left empty)
-sigalg = SHA256withECDSA | SHA384withECDSA | SHA512withECDSA | SHA256withRSA | SHA384withRSA | SHA512withRSA
+sigalg = SHA256withECDSA | SHA384withECDSA | SHA512withECDSA | SHA256withRSA | SHA384withRSA | SHA512withRSA | RSASSA-PSS/SHA256 | RSASSA-PSS/SHA384 | RSASSA-PSS/SHA512
             the PSS variants require bouncy castle on Java 8
             No way to install both KmsProvider and BounceCastleProvider via arguments
 certchain = some location that defines the certificate chain (including our signing cert)
