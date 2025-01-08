@@ -30,6 +30,8 @@ The provider needs the KMS client to be informed in its creation. It is worth me
 ```
 KmsClient kmsClient = KmsClient.builder().build();
 KmsProvider kmsProvider = new KmsProvider(kmsClient);
+  or just
+KmsProvider kmsProvider = new KmsProvider();
 ```
 
 Once the provider is created, it is possible to register it.
@@ -89,6 +91,9 @@ ECDSA_SHA_256 |	SHA256withECDSA |
 ECDSA_SHA_384 |	SHA384withECDSA |
 ECDSA_SHA_512 |	SHA512withECDSA |
 
+Java 8 does not natively support the RSASSA_PSS algorithms above without also including the BouncyCastle Provider. Something that is 
+not possible when used with keytool and jarsigner without modifying the JAVA_HOME/jre/lib/security file.
+
 To sign and / or verify it is necessary to obtain Signature via JCE:
 
 ```
@@ -107,7 +112,27 @@ kmsSignature.update(message.getBytes());
 boolean valid = kmsSignature.verify(signatureBytes);
 ```
 
+
+
+#### CSR Generation using Keytool 
+## TODO Example of integration with keytool
+
+#### Code Signing
+## TODO Example of integration with jarsigner
+
+#### CA Signing with Keytool
+## TODO Example of integration with keytool
+
+
+
+
+
+
+
+
+
 #### Generating the Certificate Signing Request (CSR) and Self-Signed Certificate
+## TODO remove all of the following in favor of keytool integration
 
 Before generating the CSR, it is necessary to first define the information that will be present in the CSR. For this, **CsrInfo** is used.
 
