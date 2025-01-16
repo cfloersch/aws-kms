@@ -1,22 +1,32 @@
 package xpertss.crypto.kms.provider.ec;
 
 import xpertss.crypto.kms.provider.KmsPublicKey;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 import java.security.interfaces.ECPublicKey;
 import java.security.spec.ECParameterSpec;
 import java.security.spec.ECPoint;
+import java.util.Objects;
 
-@Getter
-@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 public class KmsECPublicKey implements KmsPublicKey, ECPublicKey {
 
-    @NonNull
     private final String id;
     private final ECPublicKey publicKey;
+
+    KmsECPublicKey(String id, ECPublicKey publicKey)
+    {
+        this.id = Objects.requireNonNull(id, "id");
+        this.publicKey = publicKey;
+    }
+
+    public String getId()
+    {
+        return id;
+    }
+
+    public ECPublicKey getPublicKey()
+    {
+        return publicKey;
+    }
 
     @Override
     public ECPoint getW() {

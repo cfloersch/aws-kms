@@ -1,11 +1,7 @@
 package xpertss.crypto.kms.provider.signature;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import software.amazon.awssdk.services.kms.model.SigningAlgorithmSpec;
 
-@Getter
-@AllArgsConstructor
 public enum KmsSigningAlgorithm {
 
     RSASSA_PSS_SHA_256("RSASSA-PSS/SHA256", "SHA-256", SigningAlgorithmSpec.RSASSA_PSS_SHA_256),
@@ -24,4 +20,22 @@ public enum KmsSigningAlgorithm {
     private final String digestAlgorithm;
     private final SigningAlgorithmSpec signingAlgorithmSpec;
 
+    private KmsSigningAlgorithm(String algorithm, String digestAlgorithm, SigningAlgorithmSpec signingAlgorithmSpec)
+    {
+        this.algorithm = algorithm;
+        this.digestAlgorithm = digestAlgorithm;
+        this.signingAlgorithmSpec = signingAlgorithmSpec;
+    }
+
+    public String getAlgorithm() {
+        return algorithm;
+    }
+
+    public String getDigestAlgorithm() {
+        return digestAlgorithm;
+    }
+
+    public SigningAlgorithmSpec getSigningAlgorithmSpec() {
+        return signingAlgorithmSpec;
+    }
 }

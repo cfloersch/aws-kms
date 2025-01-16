@@ -21,7 +21,7 @@ public class RSASSA_PSS_SHA384_Test extends KmsSignatureTest {
     }
 
     @Override
-    protected KeyPair getKeyPair() {
+    protected KeyPair getKeyPair() throws Exception {
         return KmsRSAKeyFactory.getKeyPair(kmsClient, KeyIds.SIGN_RSA);
     }
 

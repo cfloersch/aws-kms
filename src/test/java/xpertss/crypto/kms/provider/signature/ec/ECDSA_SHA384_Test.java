@@ -10,7 +10,7 @@ import java.security.KeyPair;
 public class ECDSA_SHA384_Test extends KmsSignatureTest {
 
     @Override
-    protected KeyPair getKeyPair() {
+    protected KeyPair getKeyPair() throws Exception {
         return KmsECKeyFactory.getKeyPair(kmsClient, KeyIds.SIGN_ECC_NIST_384);
     }
 

@@ -1,7 +1,6 @@
 package xpertss.crypto.kms.provider.signature;
 
 import xpertss.crypto.kms.provider.KmsKey;
-import lombok.NonNull;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.services.kms.KmsClient;
 import software.amazon.awssdk.services.kms.model.MessageType;
@@ -10,20 +9,22 @@ import software.amazon.awssdk.services.kms.model.SigningAlgorithmSpec;
 import software.amazon.awssdk.services.kms.model.VerifyRequest;
 
 import java.security.*;
+import java.util.Objects;
 
 public class KmsSignature extends SignatureSpi {
 
     private final KmsClient kmsClient;
 
-    private SigningAlgorithmSpec signingAlgorithmSpec;
+    private final SigningAlgorithmSpec signingAlgorithmSpec;
     private MessageDigest messageDigest;
     private boolean digestReset;
 
     private KmsKey key;
 
-    public KmsSignature(@NonNull KmsClient kmsClient, @NonNull KmsSigningAlgorithm kmsSigningAlgorithm) {
-        this.kmsClient = kmsClient;
-        this.signingAlgorithmSpec = kmsSigningAlgorithm.getSigningAlgorithmSpec();
+    public KmsSignature(KmsClient kmsClient, KmsSigningAlgorithm kmsSigningAlgorithm) {
+        this.kmsClient = Objects.requireNonNull(kmsClient, "kmsClient");
+        this.signingAlgorithmSpec = Objects.requireNonNull(kmsSigningAlgorithm,"kmsSigningAlgorithm")
+                                        .getSigningAlgorithmSpec();
         initMessageDigest(kmsSigningAlgorithm.getDigestAlgorithm());
     }
 
