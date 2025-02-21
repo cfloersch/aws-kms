@@ -4,7 +4,7 @@
 
     <groupId>org.xpertss</groupId>
     <artifactId>aws-kms</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2-SNAPSHOT</version>
 
     <name>${project.groupId}:${project.artifactId}</name>
     <description>Library to add support for AWS KMS key management for code signing and CA services</description>
@@ -212,7 +212,7 @@
         <url>https://github.com/cfloersch/aws-kms</url>
         <connection>scm:git:git://git@github.com/cfloersch/aws-kms.git</connection>
         <developerConnection>scm:git:git@github.com:cfloersch/aws-kms.git</developerConnection>
-        <tag>aws-kms-1.0.1</tag>
+        <tag>HEAD</tag>
     </scm>
 
 
