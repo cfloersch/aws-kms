@@ -2,11 +2,11 @@ package xpertss.crypto.kms.provider;
 
 import xpertss.crypto.kms.provider.signature.KmsSignature;
 import xpertss.crypto.kms.provider.signature.KmsSigningAlgorithm;
-import lombok.NonNull;
 import software.amazon.awssdk.services.kms.KmsClient;
 
 import java.security.Provider;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 public class KmsProvider extends Provider {
@@ -14,9 +14,9 @@ public class KmsProvider extends Provider {
         this(KmsClient.builder().build());
     }
 
-    public KmsProvider(@NonNull KmsClient kmsClient) {
+    public KmsProvider(KmsClient kmsClient) {
         super("KMS", 1.0, "AWS KMS Provider");
-        registerSignatures(kmsClient);
+        registerSignatures(Objects.requireNonNull(kmsClient, "kmsClient"));
     }
 
     private void registerSignatures(final KmsClient kmsClient) {

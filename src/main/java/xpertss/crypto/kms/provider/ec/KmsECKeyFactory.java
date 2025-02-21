@@ -1,15 +1,16 @@
 package xpertss.crypto.kms.provider.ec;
 
-import lombok.NonNull;
-import lombok.SneakyThrows;
 import software.amazon.awssdk.services.kms.KmsClient;
 import software.amazon.awssdk.services.kms.model.GetPublicKeyRequest;
 import software.amazon.awssdk.services.kms.model.GetPublicKeyResponse;
 
 import java.security.KeyFactory;
 import java.security.KeyPair;
+import java.security.NoSuchAlgorithmException;
 import java.security.interfaces.ECPublicKey;
+import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
+import java.util.Objects;
 
 public abstract class KmsECKeyFactory {
 
@@ -22,7 +23,11 @@ public abstract class KmsECKeyFactory {
      * @param keyId
      * @return
      */
-    public static KeyPair getKeyPair(@NonNull KmsClient kmsClient, @NonNull String keyId) {
+    public static KeyPair getKeyPair(KmsClient kmsClient, String keyId)
+        throws NoSuchAlgorithmException, InvalidKeySpecException
+    {
+        Objects.requireNonNull(kmsClient, "kmsClient");
+        Objects.requireNonNull(keyId, "keyId");
         return new KeyPair(getPublicKey(kmsClient, keyId), getPrivateKey(keyId));
     }
 
@@ -33,7 +38,8 @@ public abstract class KmsECKeyFactory {
      * @param keyId
      * @return
      */
-    public static KeyPair getKeyPair(@NonNull String keyId) {
+    public static KeyPair getKeyPair(String keyId) {
+        Objects.requireNonNull(keyId, "keyId");
         return new KeyPair(getPublicKey(keyId), getPrivateKey(keyId));
     }
 
@@ -43,7 +49,8 @@ public abstract class KmsECKeyFactory {
      * @param keyId
      * @return
      */
-    public static KmsECPrivateKey getPrivateKey(@NonNull String keyId) {
+    public static KmsECPrivateKey getPrivateKey(String keyId) {
+        Objects.requireNonNull(keyId, "keyId");
         return new KmsECPrivateKey(keyId);
     }
 
@@ -53,7 +60,8 @@ public abstract class KmsECKeyFactory {
      * @param keyId
      * @return
      */
-    public static KmsECPublicKey getPublicKey(@NonNull String keyId) {
+    public static KmsECPublicKey getPublicKey(String keyId) {
+        Objects.requireNonNull(keyId, "keyId");
         return new KmsECPublicKey(keyId, null);
     }
 
@@ -66,8 +74,11 @@ public abstract class KmsECKeyFactory {
      * @param keyId
      * @return
      */
-    @SneakyThrows
-    public static KmsECPublicKey getPublicKey(@NonNull KmsClient kmsClient, @NonNull String keyId) {
+    public static KmsECPublicKey getPublicKey(KmsClient kmsClient, String keyId)
+        throws NoSuchAlgorithmException, InvalidKeySpecException
+    {
+        Objects.requireNonNull(kmsClient, "kmsClient");
+        Objects.requireNonNull(keyId, "keyId");
         GetPublicKeyRequest getPublicKeyRequest = GetPublicKeyRequest.builder().keyId(keyId).build();
         GetPublicKeyResponse getPublicKeyResponse = kmsClient.getPublicKey(getPublicKeyRequest);
 

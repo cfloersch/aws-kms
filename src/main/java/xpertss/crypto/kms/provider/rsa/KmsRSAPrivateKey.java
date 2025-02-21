@@ -1,22 +1,40 @@
 package xpertss.crypto.kms.provider.rsa;
 
 import xpertss.crypto.kms.provider.KmsKey;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 import java.math.BigInteger;
 import java.security.interfaces.RSAPrivateKey;
+import java.util.Objects;
 
-@Getter
-@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 public class KmsRSAPrivateKey implements KmsKey, RSAPrivateKey {
 
-    @NonNull
     private final String id;
     private final String algorithm = "RSA";
     private final String format = "X.509";
+
+    KmsRSAPrivateKey(String id)
+    {
+        this.id = Objects.requireNonNull(id, "id");
+    }
+
+    public String getId()
+    {
+        return id;
+    }
+
+    @Override
+    public String getAlgorithm()
+    {
+        return algorithm;
+    }
+
+    @Override
+    public String getFormat()
+    {
+        return format;
+    }
+
+
 
     @Override
     public BigInteger getPrivateExponent() {

@@ -1,21 +1,31 @@
 package xpertss.crypto.kms.provider.rsa;
 
 import xpertss.crypto.kms.provider.KmsPublicKey;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 import java.math.BigInteger;
 import java.security.interfaces.RSAPublicKey;
+import java.util.Objects;
 
-@Getter
-@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 public class KmsRSAPublicKey implements KmsPublicKey, RSAPublicKey {
 
-    @NonNull
     private final String id;
     private final RSAPublicKey publicKey;
+
+    KmsRSAPublicKey(String id, RSAPublicKey publicKey)
+    {
+        this.id = Objects.requireNonNull(id, "id");
+        this.publicKey = publicKey;
+    }
+
+    public String getId()
+    {
+        return id;
+    }
+
+    public RSAPublicKey getPublicKey()
+    {
+        return publicKey;
+    }
 
     @Override
     public BigInteger getPublicExponent() {

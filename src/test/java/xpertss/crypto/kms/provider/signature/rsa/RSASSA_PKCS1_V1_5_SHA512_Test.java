@@ -10,7 +10,7 @@ import java.security.KeyPair;
 public class RSASSA_PKCS1_V1_5_SHA512_Test extends KmsSignatureTest {
     
     @Override
-    protected KeyPair getKeyPair() {
+    protected KeyPair getKeyPair() throws Exception {
         return KmsRSAKeyFactory.getKeyPair(kmsClient, KeyIds.SIGN_RSA);
     }
 

@@ -1,12 +1,10 @@
 package xpertss.crypto.kms.provider;
 
-import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.security.Key;
-import java.security.KeyStore;
-import java.security.Security;
+import java.io.IOException;
+import java.security.*;
 import java.security.interfaces.ECPrivateKey;
 import java.security.interfaces.RSAPrivateKey;
 import java.util.Enumeration;
@@ -30,8 +28,9 @@ public class KmsKeyStoreTest {
     }
 
     @Test
-    @SneakyThrows
-    public void testAliases() {
+    public void testAliases()
+        throws GeneralSecurityException, IOException
+    {
         //KeyStore keyStore = KeyStore.getInstance("KMS", this.kmsProvider);
         KeyStore keyStore = KeyStore.getInstance("KMS");
         keyStore.load(null, null);
@@ -41,8 +40,9 @@ public class KmsKeyStoreTest {
     }
 
     @Test
-    @SneakyThrows
-    public void testContainsAlias() {
+    public void testContainsAlias()
+        throws GeneralSecurityException, IOException
+    {
         KeyStore keyStore = KeyStore.getInstance("KMS");
         keyStore.load(null, null);
 
@@ -51,8 +51,9 @@ public class KmsKeyStoreTest {
     }
 
     @Test
-    @SneakyThrows
-    public void testNotContainsAlias() {
+    public void testNotContainsAlias()
+        throws GeneralSecurityException, IOException
+    {
         KeyStore keyStore = KeyStore.getInstance("KMS", this.kmsProvider);
         keyStore.load(null, null);
 
@@ -61,8 +62,9 @@ public class KmsKeyStoreTest {
     }
 
     @Test
-    @SneakyThrows
-    public void testSize() {
+    public void testSize()
+        throws GeneralSecurityException, IOException
+    {
         KeyStore keyStore = KeyStore.getInstance("KMS", this.kmsProvider);
         keyStore.load(null, null);
 
@@ -71,8 +73,9 @@ public class KmsKeyStoreTest {
     }
 
     @Test
-    @SneakyThrows
-    public void testGetRsaKey() {
+    public void testGetRsaKey()
+        throws GeneralSecurityException, IOException
+    {
         KeyStore keyStore = KeyStore.getInstance("KMS", this.kmsProvider);
         keyStore.load(null, null);
 
@@ -83,8 +86,9 @@ public class KmsKeyStoreTest {
     }
 
     @Test
-    @SneakyThrows
-    public void testGetEcKey() {
+    public void testGetEcKey()
+        throws GeneralSecurityException, IOException
+    {
         KeyStore keyStore = KeyStore.getInstance("KMS", this.kmsProvider);
         keyStore.load(null, null);
 
@@ -95,8 +99,9 @@ public class KmsKeyStoreTest {
     }
 
     @Test
-    @SneakyThrows
-    public void testGetEncryptKey() {
+    public void testGetEncryptKey()
+        throws GeneralSecurityException, IOException
+    {
         KeyStore keyStore = KeyStore.getInstance("KMS", this.kmsProvider);
         keyStore.load(null, null);
 

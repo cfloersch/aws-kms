@@ -1,23 +1,41 @@
 package xpertss.crypto.kms.provider.ec;
 
 import xpertss.crypto.kms.provider.KmsKey;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 import java.math.BigInteger;
 import java.security.interfaces.ECPrivateKey;
 import java.security.spec.ECParameterSpec;
+import java.util.Objects;
 
-@Getter
-@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 public class KmsECPrivateKey implements KmsKey, ECPrivateKey {
 
-    @NonNull
     private final String id;
     private final String algorithm = "EC";
     private final String format = "PKCS#8";
+
+    KmsECPrivateKey(String id)
+    {
+        this.id = Objects.requireNonNull(id, "id");
+    }
+
+    public String getId()
+    {
+        return id;
+    }
+
+
+    @Override
+    public String getAlgorithm()
+    {
+        return algorithm;
+    }
+
+    @Override
+    public String getFormat()
+    {
+        return format;
+    }
+
 
     @Override
     public BigInteger getS() {

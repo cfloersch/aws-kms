@@ -1,7 +1,5 @@
 package xpertss.crypto.kms.provider;
 
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import xpertss.crypto.kms.provider.ec.KmsECKeyFactory;
 import xpertss.crypto.kms.provider.rsa.KmsRSAKeyFactory;
 
@@ -20,11 +18,15 @@ import java.security.cert.CertificateException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@RequiredArgsConstructor
 public class KmsKeyStore extends KeyStoreSpi {
 
-    @NonNull
     private final KmsClient kmsClient;
+
+    public KmsKeyStore(KmsClient kmsClient)
+    {
+        this.kmsClient = Objects.requireNonNull(kmsClient, "kmsClient");
+    }
+
 
     @Override
     public Enumeration<String> engineAliases() {
@@ -34,7 +36,7 @@ public class KmsKeyStore extends KeyStoreSpi {
     @Override
     public boolean engineContainsAlias(String alias) {
         String prefixedAlias = getPrefixedAlias(alias);
-        return getAliases().stream().filter(e -> e.aliasName().equals(prefixedAlias)).findAny().isPresent();
+        return getAliases().stream().anyMatch(e -> e.aliasName().equals(prefixedAlias));
     }
 
     @Override

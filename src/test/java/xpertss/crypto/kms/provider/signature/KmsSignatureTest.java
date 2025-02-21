@@ -4,7 +4,6 @@ import xpertss.crypto.kms.provider.KmsKey;
 import xpertss.crypto.kms.provider.KmsProvider;
 import xpertss.crypto.kms.provider.KmsPublicKey;
 import xpertss.crypto.kms.provider.util.StringUtil;
-import lombok.SneakyThrows;
 import software.amazon.awssdk.services.kms.KmsClient;
 
 import java.security.KeyPair;
@@ -25,7 +24,7 @@ public abstract class KmsSignatureTest {
         this.kmsProvider = new KmsProvider(kmsClient);
     }
 
-    protected abstract KeyPair getKeyPair();
+    protected abstract KeyPair getKeyPair() throws Exception;
 
     protected abstract KmsSigningAlgorithm getKmsSigningAlgorithm();
 
@@ -38,8 +37,9 @@ public abstract class KmsSignatureTest {
     }
 
     @Test
-    @SneakyThrows
-    public void test() {
+    public void test()
+        throws Exception
+    {
         KeyPair keyPair = getKeyPair();
         KmsSigningAlgorithm kmsSigningAlgorithm = getKmsSigningAlgorithm();
 
@@ -47,7 +47,7 @@ public abstract class KmsSignatureTest {
 
         System.out.println();
         System.out.println("----------------------------------------------");
-        System.out.println(String.format("Testing Key [ %s ] with Algorithm [ %s ]", keyId, kmsSigningAlgorithm.name()));
+        System.out.printf("Testing Key [ %s ] with Algorithm [ %s ]%n", keyId, kmsSigningAlgorithm.name());
         System.out.println("----------------------------------------------");
 
         String message = "text to be signed!";
