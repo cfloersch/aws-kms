@@ -41,3 +41,8 @@ AWS Config/Creds
   region
 
 Can those be passed by overloading any storepass/keypass combo
+
+
+
+
+On jarsigner maybe use protected path to avoid needing keystore password prompt
